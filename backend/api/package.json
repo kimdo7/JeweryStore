@@ -1,0 +1,11 @@
+{
+  "name": "ngocchau_backend",
+  "version": "1.0.0",
+  "description": "Ngoc Chau Backend",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kim Do",
+  "license": "ISC"
+}
