@@ -1,8 +1,8 @@
-var users = require("../controllers/users")
+var staffs = require("../controllers/staffs")
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
-        users.index(req,res)
+        staffs.index(req,res)
     })
     // all other routes
 }        

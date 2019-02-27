@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-User = mongoose.model('User')
+var Staff = mongoose.model('Staff')
 
 // All necessary requires, such as the Quote model.
 module.exports = {
     index: function(req, res) {
-    	User.find({}, function (err, users) {
+    	Staff.find({}, function (err, users) {
             res.json({msg:"test1"})
         })
     },

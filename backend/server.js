@@ -6,9 +6,11 @@ var app = express();
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, './static')));
+// app.use(express.static(path.join(__dirname, './static')));
 
-mongoose.connect('mongodb://localhost/basic_mongoose');
+mongoose.set('useCreateIndex', true)
+mongoose.connect('mongodb://localhost/basic_mongoose', { useNewUrlParser: true });
+
 require("./server/config/mongoose.js")
 require('./server/config/routes.js')(app)
 
