@@ -2,8 +2,6 @@ var bcrypt = require("bcrypt")
 const mongoose = require('mongoose')
 var Staff = mongoose.model('Staff')
 
-
-// All necessary requires, such as the Quote model.
 module.exports = {
     /**
      * get all  staffs
