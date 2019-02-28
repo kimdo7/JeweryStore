@@ -1,4 +1,3 @@
-// Require the Express Module
 var express = require('express');
 var path = require('path');
 var mongoose = require('mongoose');

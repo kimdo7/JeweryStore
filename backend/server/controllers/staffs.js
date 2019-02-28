@@ -1,5 +1,7 @@
+var bcrypt = require("bcrypt")
 const mongoose = require('mongoose')
 var Staff = mongoose.model('Staff')
+
 
 // All necessary requires, such as the Quote model.
 module.exports = {
@@ -31,7 +33,7 @@ module.exports = {
             if (err)
                 res.json({ message: "Error", error: err })
             else {
-                Staff.find({user_type : { $gt: curr_staff[0].user_type }}, function (err, staffs) {
+                Staff.find({ user_type: { $gt: curr_staff[0].user_type } }, function (err, staffs) {
                     if (err)
                         res.json({ message: "Error", error: err })
                     else
@@ -60,25 +62,31 @@ module.exports = {
                     return
                 }
 
-                var staff = new Staff({
-                    first_name: req.body.first_name,
-                    last_name: req.body.last_name,
-                    user_type: req.body.user_type,
-                    user_name: req.body.user_name,
-                    password: req.body.password,
-                    email: req.body.email,
-                    phone: req.body.phone
-                })
-
-                staff.save(function (err) {
-                    if (err)
-                        res.json({ message: "Error", error: err })
-                    else
-                        res.json({
-                            message: "Success",
-                            title: "New Staff Created",
+                bcrypt.hash(req.body.password, 10)
+                    .then(hashed_password => {
+                        var staff = new Staff({
+                            first_name: req.body.first_name,
+                            last_name: req.body.last_name,
+                            user_type: req.body.user_type,
+                            user_name: req.body.user_name,
+                            password: hashed_password,
+                            email: req.body.email,
+                            phone: req.body.phone
                         })
-                });
+
+                        staff.save(function (err) {
+                            if (err)
+                                res.json({ message: "Error", error: err })
+                            else
+                                res.json({
+                                    message: "Success",
+                                    title: "New Staff Created",
+                                })
+                        });
+                    })
+                    .catch(error => {
+                        res.json({ message: "Error", error: error })
+                    });
             }
         })
     },
@@ -136,6 +144,31 @@ module.exports = {
                 })
             }
 
+        })
+    },
+
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    logIn: function (req, res) {
+        Staff.find({ _id: req.body.id }, function (err, curr_staff) {
+            if (err)
+                res.json({ message: "Error", error: err })
+            else {
+                bcrypt.compare(req.body.password, curr_staff[0].password)
+                    .then(result => {
+                        res.json({
+                            message: "Success",
+                            title: "Log In",
+                            data: result
+                        })
+                    })
+                    .catch(error => {
+                        res.json({ message: "Error", error: error })
+                    })
+            }
         })
     }
 };

@@ -30,6 +30,10 @@ module.exports = function (app) {
         staffs.delete(req, res)
     })
 
+    app.post("/logIn", function(req, res){
+        staffs.logIn(req, res)
+    })
+
     /**
      **================PRICE===================* 
      */
@@ -51,6 +55,8 @@ module.exports = function (app) {
     app.patch("/price/:id/:user_id", function(req, res){
         prices.delete(req, res)
     })
+
+    
 
     /**
      **================USER TYPE===================* 
