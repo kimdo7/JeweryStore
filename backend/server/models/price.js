@@ -9,6 +9,6 @@ var Priceschema = new mongoose.Schema({
     sell_24k : {type: Number, required: true},
     buy_24k : {type: Number, required: true},
     change_24k : {type: Number, required: true},
-}, { timestamps: true })
+}, { timestamps: true, upsert:true})
 
 mongoose.model('Price', Priceschema);

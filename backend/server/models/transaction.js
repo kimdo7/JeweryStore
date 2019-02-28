@@ -10,6 +10,6 @@ var TransactionSchema = new mongoose.Schema({
     count : {type: Number, required: true},
     total : {type: Number, required: true},
     items : [TransactionDetailSchema]
-}, { timestamps: true })
+}, { timestamps: true, upsert:true})
 
 mongoose.model('Transaction', TransactionSchema);

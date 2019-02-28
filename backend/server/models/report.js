@@ -4,6 +4,6 @@ var mongoose = require('mongoose');
 var ReportSchema = new mongoose.Schema({
     title : {type: String, required: true, minlength: 2},
     src : {type: String, required: true, minlength: 2},
-}, { timestamps: true })
+}, { timestamps: true, upsert:true})
 
 mongoose.model('Report', ReportSchema);

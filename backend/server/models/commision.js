@@ -7,6 +7,6 @@ var CommissionSchema = new mongoose.Schema({
     transaction_id : {type : String, required: true},
     total: {type: String, required: true}
 
-}, { timestamps: true })
+}, { timestamps: true, upsert:true})
 
 mongoose.model('Commision', CommissionSchema);

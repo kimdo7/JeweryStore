@@ -6,7 +6,7 @@ var TransactionDetailSchema = new mongoose.Schema({
     item_name : {type: String, required: true},
     count : {type: Number, required: true},
     price : {type: Number, required: true},
-}, { timestamps: true })
+}, { timestamps: true, upsert:true})
 
 mongoose.model('TransactionDetail', TransactionDetailSchema)
 

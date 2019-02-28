@@ -10,7 +10,7 @@ var ItemSchema = new mongoose.Schema({
     commision: {type: Number, required: true, minlength: 2},
     img_src : [String],
     locations: [String]
-}, { timestamps: true })
+}, { timestamps: true, upsert:true})
 
 mongoose.model('Item', ItemSchema);
 
