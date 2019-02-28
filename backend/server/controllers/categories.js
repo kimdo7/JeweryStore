@@ -43,6 +43,11 @@ module.exports = {
         });
     },
 
+    /**
+     * Update the name
+     * @param {*} req 
+     * @param {*} res 
+     */
     update: function (req, res) {
         Category.update({ _id: req.body.id }, {
             $set: {
@@ -59,6 +64,11 @@ module.exports = {
         })
     },
 
+    /**
+     * *validation* size != 0
+     * @param {*} req 
+     * @param {*} res 
+     */
     delete: function (req, res) {
         Category.find({ _id: req.params.id }, function (err, categories) {
             if (err)
@@ -77,8 +87,4 @@ module.exports = {
                 })
         })
     }
-
-
-
-
 }
