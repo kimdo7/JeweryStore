@@ -3,6 +3,11 @@ var Staff = mongoose.model('Staff')
 
 // All necessary requires, such as the Quote model.
 module.exports = {
+    /**
+     * get all  staffs
+     * @param {*} req 
+     * @param {*} res 
+     */
     getAll: function (req, res) {
         Staff.find({}, function (err, staffs) {
             if (err)
@@ -16,6 +21,11 @@ module.exports = {
         })
     },
 
+    /**
+     * get all staffs below level and current 
+     * @param {*} req 
+     * @param {*} res 
+     */
     getBelowStaffs: function (req, res) {
         Staff.find({ _id: req.params.id }, function (err, curr_staff) {
             if (err)
@@ -35,8 +45,13 @@ module.exports = {
         })
     },
 
+    /**
+     * create a new staff *below* level
+     * @param {*} req 
+     * @param {*} res 
+     */
     create: function (req, res) {
-        Staff.find({ _id: req.body.user_id }, function (err, curr_staff) {
+        Staff.find({ _id: req.params.id }, function (err, curr_staff) {
             if (err)
                 res.json({ message: "Error", error: err })
             else {
@@ -68,6 +83,12 @@ module.exports = {
         })
     },
 
+
+    /**
+     * update staff
+     * @param {*} req 
+     * @param {*} res 
+     */
     update: function (req, res) {
         Staff.update({ _id: req.body.id }, {
             $set: {
@@ -89,8 +110,32 @@ module.exports = {
         })
     },
 
-
+    /**
+     * delete staff
+     * @param {*} req 
+     * @param {*} res 
+     */
     delete: function (req, res) {
-        // code...
+        Staff.find({ _id: req.params.user_id }, function (err, curr_staff) {
+            if (err)
+                res.json({ message: "Error", error: err })
+            else {
+                if (parseInt(curr_staff[0].user_type) >= req.body.user_type) {
+                    res.json({ message: "Error", error: "Access Level Denied" })
+                    return
+                }
+
+                Staff.remove({ _id: req.body.id }, function (err) {
+                    if (err)
+                        res.json({ message: "Error", error: err })
+                    else
+                        res.json({
+                            message: "Success",
+                            title: "User Types Deleted",
+                        })
+                })
+            }
+
+        })
     }
 };

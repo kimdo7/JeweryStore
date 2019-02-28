@@ -16,15 +16,15 @@ module.exports = function (app) {
         staffs.getAll(req, res)
     })
 
-    app.post("/staff", function (req, res) {
+    app.post("/staff/:id", function (req, res) {
         staffs.create(req, res)
     })
 
-    app.put("/staff", function (req, res) {
+    app.put("/staff/:id", function (req, res) {
         staffs.update(req, res)
     })
 
-    app.patch("/staff", function (req, res) {
+    app.patch("/staff/:id", function (req, res) {
         staffs.delete(req, res)
     })
 
