@@ -1,13 +1,15 @@
 var staffs = require("../controllers/staffs")
 var user_types = require("../controllers/user_types")
+var prices = require("../controllers/prices")
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
         staffs.getAll(req, res)
     })
 
-    //*********Staff*******************/
-
+    /**
+     **================Staff===================* 
+     */
     app.get("/staffs/:id", function (req, res) {
         staffs.getBelowStaffs(req, res)
     })
@@ -28,11 +30,35 @@ module.exports = function (app) {
         staffs.delete(req, res)
     })
 
+    /**
+     **================PRICE===================* 
+     */
+    app.get("/prices", function(req, res){
 
-    //*********USER TYPE*******************/
+    })
+    app.get("/price", function (req, res) {
+        prices.current_price(req, res)
+    })
+
+    app.post("/price/:id", function(req, res){
+        prices.add(req, res)
+    })
+
+    app.put("/price/:id", function(req, res){
+        prices.update(req, res)
+    })
+
+    app.patch("/price/:id/:user_id", function(req, res){
+        prices.delete(req, res)
+    })
+
+    /**
+     **================USER TYPE===================* 
+     */
     app.get("/all_user_types", function (req, res) {
         user_types.getAll(req, res)
     })
+
     app.get("/user_types/:id", function (req, res) {
         user_types.getAllByUser(req, res)
     })
@@ -42,11 +68,10 @@ module.exports = function (app) {
     })
 
     app.put("/user_types", function (req, res) {
-        console.log(req.body)
         user_types.update(req, res)
     })
 
-    app.patch("/user_types", function (req, res) {
+    app.patch("/user_types/:id", function (req, res) {
         user_types.delete(req, res)
     })
     // all other routes
